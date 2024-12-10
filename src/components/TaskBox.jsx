@@ -5,12 +5,9 @@ import { DragDropContext } from 'react-beautiful-dnd';
 const TaskBox = ({ events, setEvents, currentEvent, setCurrentEvent }) => {
   const handleRemove = useCallback(() => {
     if (confirm('You really want to remove it?')) {
-      // update events
       setEvents((prev) => {
         const result = prev.filter((item) => item.title != currentEvent.title);
-        // if event is empty
         if (!result.length) {
-          // init the event
           const initEvent = [
             {
               title: 'Add a new Event',
@@ -21,7 +18,6 @@ const TaskBox = ({ events, setEvents, currentEvent, setCurrentEvent }) => {
           ];
           setEvents(initEvent);
         } else {
-          // set the first event as current
           setCurrentEvent(result[0]);
         }
         return result;
@@ -38,11 +34,11 @@ const TaskBox = ({ events, setEvents, currentEvent, setCurrentEvent }) => {
       prev.map((event) => {
         if (event.title === currentEvent.title) {
           let eventCopy = { ...event };
-          // Remove from source
+
           const taskListSource = event[source.droppableId];
           taskListSource.splice(source.index, 1);
           eventCopy = { ...event, [source.droppableId]: taskListSource };
-          // Add to destination
+          
           const taskListDes = event[destination.droppableId];
           taskListDes.splice(destination.index, 0, taskCopy);
           eventCopy = { ...event, [destination.droppableId]: taskListDes };

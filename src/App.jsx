@@ -36,7 +36,6 @@ function App() {
     }
   }, [events]);
 
-  // Set localStorage
   useEffect(() => {
     updateEvents();
   }, [events]);
